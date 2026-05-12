@@ -41,18 +41,22 @@ let productores = [
     {"id_cancion": 14, "productores": "GIO, GARABATTO, Bdp Music, Pana YMB, Josh Gudwin, Colin Leonard"}
 ]
 
+
  app.get("/", (req,res) => {
     return res.json(ElBaifo);
  })
 
+// Con este Endpoint se obtiene la primera canción del disco
  app.get("/intro", (req,res) =>{
     return res.json(ElBaifo[0]);
  })
 
+// Con este Endpoint se obtiene la canción con el id que le pongas (Uso Query Params)
 app.get("/encontrar-cancion-id", (req,res) => {
-    return res.json(ElBaifo[req.body.id])
+    return res.json(ElBaifo[req.query.id])
 })
 
+// Con este Endpoint se obtiene la canción con el id que le pongas (Uso Rute Params)
 app.get("/ElBaifo/:id", (req, res) => {
     const cancion = ElBaifo.find(a => a.id == req.params.id);
     return res.json(cancion);
