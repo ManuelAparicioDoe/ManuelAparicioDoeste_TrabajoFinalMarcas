@@ -70,8 +70,15 @@ app.get("/ElBaifo/:id", (req, res) => {
     return res.json(cancion);
 })
 
-// Hago un Endpoint para crear y guardar una nueva canción
+// Hago un Endpoint para crear y guardar una nueva canción poniendo la restricción de los campos obligatorios con un if
 app.post("/guardar-cancion", (req,res) =>{
+
+    if(!req.body.titulo || !req.body.duracion || !req.body.artista_principal){
+        return res.status(400).json({
+            mensaje: "Faltan algún campo o algunos campos obligatorios. (Recuerda introducir: titulo, duracion y artista)"
+        })
+    }
+
     let nuevaCancion = {
         id: ElBaifo.length+1,
         titulo: req.body.titulo,
@@ -80,10 +87,22 @@ app.post("/guardar-cancion", (req,res) =>{
     }
 
     ElBaifo.push(nuevaCancion);
-    return res.status(200).json(nuevaCancion)
-} )
 
-// Hago un Endpoint PUT para actualizar canción
+    return res.status(201).json(nuevaCancion)
+})
+
+// Creo un Endpoint para obtener los productores de una canción
+
+app.get("/productores/:id", (req,res) => {
+
+    const productor = productores.find(
+        a => a.id_cancion == req.params.id
+    )
+
+    return res.json(productor)
+})
+
+// Creo un Endpoint PUT para actualizar canción
 app.put("/actualizar-cancion", (req,res) => {
     
     ElBaifo[req.body.id-1].titulo = req.body.titulo;
@@ -96,6 +115,6 @@ app.put("/actualizar-cancion", (req,res) => {
 app.delete("/eliminar-cancion", (req,res) => {
     const index = ElBaifo.findIndex(a => a.id == req.body.id)
     ElBaifo.splice(index, 1)
-    return res.send("canción con id " + req.body.id + " eliminado")
+    return res.send("canción con id " + req.body.id + " eliminada")
 })
 
