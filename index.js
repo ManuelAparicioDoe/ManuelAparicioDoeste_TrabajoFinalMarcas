@@ -177,3 +177,13 @@ app.get("/filtrar-canciones", (req,res) => {
 
     return res.json(resultado)
 })
+
+// Creo Endepoint para buscar canciones por filtro de texto parcial
+app.get("/buscar-canciones", (req,res) => {
+
+    const resultado = ElBaifo.filter(a =>
+        a.titulo.toLowerCase().includes(req.query.titulo.toLowerCase())
+    )
+
+    return res.json(resultado)
+})
