@@ -209,3 +209,45 @@ app.get("/ordenar-bpm", (req,res) => {
 
     return res.json(ElBaifo.sort((a,b) => a.bpm - b.bpm));
 })
+
+// Creo Endepoint para hacer la media de bpm
+app.get("/bpm/media", (req,res) => {
+
+    let suma = 0;
+
+    for(let i = 0; i < ElBaifo.length; i++){
+        suma = suma + Number(ElBaifo[i].bpm);
+    }
+
+    return res.json({
+    media_bpm: suma / ElBaifo.length
+});
+})
+
+// Creo Endepoint para obtener la acanción que tenga el bpm más alto
+app.get("/bpm/max", (req,res) => {
+
+    let max = Number(ElBaifo[0].bpm);
+
+    for(let i = 0; i < ElBaifo.length; i++){
+        if(Number(ElBaifo[i].bpm) > max){
+            max = Number(ElBaifo[i].bpm);
+        }
+    }
+
+    return res.json({ maximo: max });
+})
+
+// Creo Endepoint para obtener la acanción que tenga el bpm más bajo
+app.get("/bpm/min", (req,res) => {
+
+    let min = Number(ElBaifo[0].bpm);
+
+    for(let i = 0; i < ElBaifo.length; i++){
+        if(Number(ElBaifo[i].bpm) < min){
+            min = Number(ElBaifo[i].bpm);
+        }
+    }
+
+    return res.json({ minimo: min });
+})
