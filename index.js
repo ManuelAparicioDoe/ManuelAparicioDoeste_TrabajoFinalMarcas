@@ -75,7 +75,7 @@ app.post("/guardar-cancion", (req,res) =>{
 
     if(!req.body.titulo || !req.body.duracion || !req.body.artista_principal){
         return res.status(400).json({
-            mensaje: "Faltan algún campo o algunos campos obligatorios. (Recuerda introducir: titulo, duracion y artista)"
+            mensaje: "Falta algún campo o algunos campos obligatorios. (Recuerda introducir: titulo, duracion y artista)"
         })
     }
 
@@ -91,17 +91,6 @@ app.post("/guardar-cancion", (req,res) =>{
     return res.status(201).json(nuevaCancion)
 })
 
-// Creo un Endpoint para obtener los productores de una canción
-
-app.get("/productores/:id", (req,res) => {
-
-    const productor = productores.find(
-        a => a.id_cancion == req.params.id
-    )
-
-    return res.json(productor)
-})
-
 // Creo un Endpoint PUT para actualizar canción
 app.put("/actualizar-cancion", (req,res) => {
     
@@ -115,6 +104,50 @@ app.put("/actualizar-cancion", (req,res) => {
 app.delete("/eliminar-cancion", (req,res) => {
     const index = ElBaifo.findIndex(a => a.id == req.body.id)
     ElBaifo.splice(index, 1)
-    return res.send("canción con id " + req.body.id + " eliminada")
+    return res.send("La canción con id " + req.body.id + " eliminada")
 })
 
+// GET para obtener todos los productores
+app.get("/productores", (req,res) => {
+    return res.json(productores)
+})
+
+// Creo un Endpoint para obtener los productores de una canción
+
+app.get("/canciones/:id/productores", (req,res) => {
+
+    const resultado = productores.filter(
+        a => a.id_cancion == req.params.id
+    )
+
+    return res.json(resultado)
+})
+
+// Hago un Endpoint para crear y guardar productores, poniendo la restricción de los campos obligatorios con un if
+app.post("/guardar-productor", (req,res) =>{
+
+    if(!req.body.id_cancion || !req.body.productores){
+        return res.status(400).json({
+            mensaje: "Falta algún campo obligatorio. (Recuerda introducir: id_cancion y productores)"
+        })
+    }
+
+    let nuevoProductor = {
+        id_cancion: req.body.id_cancion,
+        productores: req.body.productores
+    }
+
+    productores.push(nuevoProductor);
+
+    return res.status(201).json(nuevoProductor)
+})
+
+// Hago un Endpoint DELETE para eliminar productores
+app.delete("/eliminar-productor", (req,res) => {
+
+    const index = productores.findIndex(a => a.id_cancion == req.body.id_cancion)
+
+    productores.splice(index, 1);
+
+    return res.send("Productores eliminados")
+})
