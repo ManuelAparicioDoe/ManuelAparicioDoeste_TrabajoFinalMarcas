@@ -151,3 +151,29 @@ app.delete("/eliminar-productor", (req,res) => {
 
     return res.send("Productores eliminados")
 })
+
+// Creo Endpoint para obtener canciones con filtro
+app.get("/filtrar-canciones", (req,res) => {
+
+    let resultado = ElBaifo
+
+    if(req.query.titulo){
+        resultado = resultado.filter(a =>
+            a.titulo.toLowerCase().includes(req.query.titulo.toLowerCase())
+        )
+    }
+
+    if(req.query.artista){
+        resultado = resultado.filter(a =>
+            a.artista_principal.toLowerCase().includes(req.query.artista.toLowerCase())
+        )
+    }
+
+    if(req.query.key){
+        resultado = resultado.filter(a =>
+            a.key.toLowerCase() == req.query.key.toLowerCase()
+        )
+    }
+
+    return res.json(resultado)
+})
