@@ -8,20 +8,20 @@ app.listen(port, () =>
 console.log("Servidor del Baifo abierto"));
 
 let ElBaifo = [
-    {"id": 1, "título": "ESTÁ EN CASA", "duración": "2:12", "artista principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Juan Pedro Moreno Carril, Javier Flaquet Moragues, Geovanny Javier Chasiloa Caza", "bpm": "94", "key": "C minor"},
-    {"id": 2, "título": "CAPRICHOSO", "duración": "3:07","artista principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Jader Mantilla Cañas, Geovanny Javier Chasiloa Caza, Javier Flaquet Moragues, Isaac Bueno del Pino, Juan Pedro Moreno Carril", "bpm": "95", "key": "C minor"},     
-    {"id": 3, "título": "EL BAIFO", "duración": "3:19","artista principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Geovanny Javier Chasiloa Caza, Javier Flaquet Moragues, Manuel Negrin Hernández, Moises Patricio González Pérez", "bpm": "92", "key": "C major"},
-    {"id": 4, "título": "GÁLDAR", "duración": "3:03","artista principal": "Quevedo", "ft": "Tonny Tun Tun", "compositor/es": "Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Jader Mantilla Cañas, Javier Falquet Moragues, Geovanny Javier Chasiloa Caza, Isaac Bueno del Pino, Jaime Rocha Perez, KIDDO, Yandro Reina", "bpm": "97", "key": "F# major"},
-    {"id": 5, "título": "SCANDIC", "duración": "3:01","artista principal": "Quevedo", "ft": null, "compositor/es": "Geovanny Javier Chasiloa Caza, Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Javier Falquet Moragues, Juan Pedro Moreno Carril, Fabricio Espinola Reyes", "bpm": "92", "key": "A# minor"},
-    {"id": 6, "título": "AL GOLPITO", "duración": "3:28","artista principal": "Quevedo", "ft": "Nueva Línea", "compositor/es": "Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Geovanny Javier Chasiloa Caza, Jaime Rocha Perez, Isaac Bueno del Pino, Javier Falquet Moragues, Hirahi Afonso", "bpm": "206", "key": "F minor"},
-    {"id": 7, "título": "2010YPICO", "duración": "3:11","artista principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Geovanny Javier Chasiloa Caza, Javier Falquet Moragues", "bpm": "93", "key": "G minor"},
-    {"id": 8, "título": "ALGO VA A PASAR", "duración": "4:08","artista principal": "Quevedo", "ft": "La Pantera, Lucho RK, Juseph", "compositor/es": "Pedro Luis Domínguez Quevedo, Geovanny Javier Chasiloa Caza, Javier Falquet Moragues, Isaac Bueno del Pino, Sergio Aimar Castellano Almeida, Kevin Juseph Zapata Rodriguez, Emilio Roca Cáceres, Jader Mantilla Cañas", "bpm": "176", "key": "F# minor"},
-    {"id": 9, "título": "HOOKAH Y CALOR", "duración": "3:33","artista principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Javier Falquet Moragues, Isaac Bueno del Pino, Geovanny Javier Chasiloa Caza", "bpm": "105", "key": "F# major"},
-    {"id": 10, "título": "FLAKITO", "duración": "3:15","artista principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Javier Falquet Moragues, Geovanny Javier Chasiloa Caza", "bpm": "172", "key": "F# minor"},
-    {"id":11, "título": "MI BALCÓN", "duración": "4:16","artista principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Jader Mantilla Cañas, Geovanny Javier Chasiloa Caza, Javier Falquet Moragues, Hirahi Daniel Afonso Meneses, Jaime Rocha Perez, Hirahi Afonso", "bpm": "92", "key": "A minor"},
-    {"id": 12, "título": "LA GRACIOSA", "duración": "4:18","artista principal": "Quevedo", "ft": "Elvis Crespo", "compositor/es": "Elvis Crespo Díaz, Jader Mantilla Cañas, Javier Falquet Moragues, Geovanny Javier Chasiloa Caza, Isaac Bueno del Pino, Jaime Rocha Perez, KIDDO, Yandro Reina", "bpm": "110", "key": "A b major"},
-    {"id": 13, "título": "NI BORRACHO", "duración": "4:08","artista principal": "Quevedo", "ft": null, "compositor/es": "KIDDO, Yandro Reinoso, Yoandy Vera Reyes, Pedro Luis Domínguez Quevedo, Emilio Roca Cáceres, Kevin Juseph Zapata Rodriguez, Sergio Aimar Castellano Almeida, Isaac Bueno del Pino, Jaime Rocha Perez, Jader Mantilla Cañas, Eduardo Lucas Artiles Bordón, Javier Falquet Moragues, Geovanny Javier Chasiloa Caza", "bpm": "153", "key": "A minor"},
-    {"id": 14, "título": "HIJO DE VOLCÁN", "duración": "5:49","artista principal": "Quevedo", "ft": "Los Gofiones", "compositor/es": "Pedro Luis Domínguez Quevedo, Javier Falquet Moragues, Geovanny Javier Chasiloa Caza, Isaac Bueno del Pino, Jaime Rocha Perez, Hirahi Daniel Afonso Meneses, Hirahi Afonso", "bpm": "170", "key": "C# major"}   
+    {"id": 1, "titulo": "ESTÁ EN CASA", "duracion": "2:12", "artista_principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Juan Pedro Moreno Carril, Javier Flaquet Moragues, Geovanny Javier Chasiloa Caza", "bpm": "94", "key": "C minor"},
+    {"id": 2, "titulo": "CAPRICHOSO", "duracion": "3:07","artista_principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Jader Mantilla Cañas, Geovanny Javier Chasiloa Caza, Javier Flaquet Moragues, Isaac Bueno del Pino, Juan Pedro Moreno Carril", "bpm": "95", "key": "C minor"},     
+    {"id": 3, "titulo": "EL BAIFO", "duracion": "3:19","artista_principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Geovanny Javier Chasiloa Caza, Javier Flaquet Moragues, Manuel Negrin Hernández, Moises Patricio González Pérez", "bpm": "92", "key": "C major"},
+    {"id": 4, "titulo": "GÁLDAR", "duracion": "3:03","artista_principal": "Quevedo", "ft": "Tonny Tun Tun", "compositor/es": "Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Jader Mantilla Cañas, Javier Falquet Moragues, Geovanny Javier Chasiloa Caza, Isaac Bueno del Pino, Jaime Rocha Perez, KIDDO, Yandro Reina", "bpm": "97", "key": "F# major"},
+    {"id": 5, "titulo": "SCANDIC", "duracion": "3:01","artista_principal": "Quevedo", "ft": null, "compositor/es": "Geovanny Javier Chasiloa Caza, Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Javier Falquet Moragues, Juan Pedro Moreno Carril, Fabricio Espinola Reyes", "bpm": "92", "key": "A# minor"},
+    {"id": 6, "titulo": "AL GOLPITO", "duracion": "3:28","artista_principal": "Quevedo", "ft": "Nueva Línea", "compositor/es": "Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Geovanny Javier Chasiloa Caza, Jaime Rocha Perez, Isaac Bueno del Pino, Javier Falquet Moragues, Hirahi Afonso", "bpm": "206", "key": "F minor"},
+    {"id": 7, "titulo": "2010YPICO", "duracion": "3:11","artista_principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Geovanny Javier Chasiloa Caza, Javier Falquet Moragues", "bpm": "93", "key": "G minor"},
+    {"id": 8, "titulo": "ALGO VA A PASAR", "duracion": "4:08","artista_principal": "Quevedo", "ft": "La Pantera, Lucho RK, Juseph", "compositor/es": "Pedro Luis Domínguez Quevedo, Geovanny Javier Chasiloa Caza, Javier Falquet Moragues, Isaac Bueno del Pino, Sergio Aimar Castellano Almeida, Kevin Juseph Zapata Rodriguez, Emilio Roca Cáceres, Jader Mantilla Cañas", "bpm": "176", "key": "F# minor"},
+    {"id": 9, "titulo": "HOOKAH Y CALOR", "duracion": "3:33","artista_principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Javier Falquet Moragues, Isaac Bueno del Pino, Geovanny Javier Chasiloa Caza", "bpm": "105", "key": "F# major"},
+    {"id": 10, "titulo": "FLAKITO", "duracion": "3:15","artista_principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Javier Falquet Moragues, Geovanny Javier Chasiloa Caza", "bpm": "172", "key": "F# minor"},
+    {"id":11, "titulo": "MI BALCÓN", "duracion": "4:16","artista_principal": "Quevedo", "ft": null, "compositor/es": "Pedro Luis Domínguez Quevedo, Mohamed Yassir Baitra, Jader Mantilla Cañas, Geovanny Javier Chasiloa Caza, Javier Falquet Moragues, Hirahi Daniel Afonso Meneses, Jaime Rocha Perez, Hirahi Afonso", "bpm": "92", "key": "A minor"},
+    {"id": 12, "titulo": "LA GRACIOSA", "duracion": "4:18","artista_principal": "Quevedo", "ft": "Elvis Crespo", "compositor/es": "Elvis Crespo Díaz, Jader Mantilla Cañas, Javier Falquet Moragues, Geovanny Javier Chasiloa Caza, Isaac Bueno del Pino, Jaime Rocha Perez, KIDDO, Yandro Reina", "bpm": "110", "key": "A b major"},
+    {"id": 13, "titulo": "NI BORRACHO", "duracion": "4:08","artista_principal": "Quevedo", "ft": null, "compositor/es": "KIDDO, Yandro Reinoso, Yoandy Vera Reyes, Pedro Luis Domínguez Quevedo, Emilio Roca Cáceres, Kevin Juseph Zapata Rodriguez, Sergio Aimar Castellano Almeida, Isaac Bueno del Pino, Jaime Rocha Perez, Jader Mantilla Cañas, Eduardo Lucas Artiles Bordón, Javier Falquet Moragues, Geovanny Javier Chasiloa Caza", "bpm": "153", "key": "A minor"},
+    {"id": 14, "titulo": "HIJO DE VOLCÁN", "duracion": "5:49","artista_principal": "Quevedo", "ft": "Los Gofiones", "compositor/es": "Pedro Luis Domínguez Quevedo, Javier Falquet Moragues, Geovanny Javier Chasiloa Caza, Isaac Bueno del Pino, Jaime Rocha Perez, Hirahi Daniel Afonso Meneses, Hirahi Afonso", "bpm": "170", "key": "C# major"}   
 ]
 
 let productores = [
@@ -56,9 +56,37 @@ app.get("/encontrar-cancion-id", (req,res) => {
     return res.json(ElBaifo[req.query.id])
 })
 
-// Con este Endpoint se obtiene la canción con el id que le pongas (Uso Rute Params)
+// Con este Endpoint se obtiene la canción con el id que le pongas (Uso Route Params)
 app.get("/ElBaifo/:id", (req, res) => {
     const cancion = ElBaifo.find(a => a.id == req.params.id);
     return res.json(cancion);
 })
 
+// Hago un Endpoint para crear y guardar una nueva canción
+app.post("/guardar-cancion", (req,res) =>{
+    let nuevaCancion = {
+        id: ElBaifo.length+1,
+        titulo: req.body.titulo,
+        duracion: req.body.duracion,
+        artista_principal: req.body.artista_principal
+    }
+
+    ElBaifo.push(nuevaCancion);
+    return res.status(200).json(nuevaCancion)
+} )
+
+// Hago un Endpoint PUT para actualizar canción
+app.put("/actualizar-cancion", (req,res) => {
+    
+    ElBaifo[req.body.id-1].titulo = req.body.titulo;
+    ElBaifo[req.body.id-1].duracion = req.body.duracion;
+
+    return res.json(ElBaifo[req.body.id-1])
+})
+
+// Hago un Endpoint DELETE para eliminar canción
+app.delete("/eliminar-cancion", (req,res) => {
+    const index = ElBaifo.findIndex(a => a.id == req.body.id)
+    ElBaifo.splice(index, 1)
+    return res.send("canción con id " + req.body.id + " eliminado")
+})
