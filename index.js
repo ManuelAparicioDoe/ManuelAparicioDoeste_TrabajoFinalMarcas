@@ -197,3 +197,15 @@ app.get("/buscar-productores", (req,res) => {
 
     return res.json(resultado)
 })
+
+// Creo Endpoint para ordenar los bpm de menor a mayor o viceversa, por defecto es de menor a mayor
+app.get("/ordenar-bpm", (req,res) => {
+
+    const orden = req.query.orden;
+
+    if(orden == "desc"){
+        return res.json(ElBaifo.sort((a,b) => b.bpm - a.bpm));
+    }
+
+    return res.json(ElBaifo.sort((a,b) => a.bpm - b.bpm));
+})
