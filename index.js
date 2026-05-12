@@ -187,3 +187,13 @@ app.get("/buscar-canciones", (req,res) => {
 
     return res.json(resultado)
 })
+
+// Creo Endpoint para buscar productores por filtro de texto parcial
+app.get("/buscar-productores", (req,res) => {
+
+    const resultado = productores.filter(a =>
+        a.productores.toLowerCase().includes(req.query.productores.toLowerCase())
+    )
+
+    return res.json(resultado)
+})
