@@ -40,3 +40,21 @@ let productores = [
     {"id_cancion": 13, "productores": "Bdp Music, GARABATTO, Pana YMB, KIDDO, Josh Gudwin, Colin Leonard"},
     {"id_cancion": 14, "productores": "GIO, GARABATTO, Bdp Music, Pana YMB, Josh Gudwin, Colin Leonard"}
 ]
+
+ app.get("/", (req,res) => {
+    return res.json(ElBaifo);
+ })
+
+ app.get("/intro", (req,res) =>{
+    return res.json(ElBaifo[0]);
+ })
+
+app.get("/encontrar-cancion-id", (req,res) => {
+    return res.json(ElBaifo[req.body.id])
+})
+
+app.get("/ElBaifo/:id", (req, res) => {
+    const cancion = ElBaifo.find(a => a.id == req.params.id);
+    return res.json(cancion);
+})
+
