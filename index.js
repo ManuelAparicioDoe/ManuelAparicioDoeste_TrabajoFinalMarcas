@@ -279,3 +279,13 @@ app.get("/orden-bpm", (req,res) => {
 
     return res.json(resultado.slice(0,num));
 })
+
+// Creo Endpoint que te dice el número de canciones totales y el de productores totales
+app.get("/totales", (req, res) => {
+
+    return res.json({
+        canciones: ElBaifo.length,
+        productores: productores.length
+    });
+
+});
