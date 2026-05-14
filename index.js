@@ -289,3 +289,21 @@ app.get("/totales", (req, res) => {
     });
 
 });
+
+// Creo Endpoint para agrupar las key, poniendo las key con el número de veces que se repite
+app.get("/agrupar-key", (req, res) => {
+
+    let resultado = {};
+
+    for (let i = 0; i < ElBaifo.length; i++) {
+        let key = ElBaifo[i].key;
+
+        if (resultado[key]) {
+            resultado[key]++;
+        } else {
+            resultado[key] = 1;
+        }
+    }
+
+    return res.json(resultado);
+});
