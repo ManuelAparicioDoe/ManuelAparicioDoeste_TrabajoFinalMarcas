@@ -47,263 +47,458 @@ let productores = [
  })
 
 // Con este Endpoint se obtiene la primera canción del disco
- app.get("/intro", (req,res) =>{
-    return res.json(ElBaifo[0]);
- })
+app.get("/intro", (req,res) => {
+
+    try {
+        if (!ElBaifo[0]) {
+            return res.status(404).json({ mensaje: "No hay canciones" });
+        }
+
+        return res.status(200).json(ElBaifo[0]);
+
+    } catch (error) {
+        return res.status(500).json({ mensaje: "Error interno del servidor" });
+    }
+})
 
 // Con este Endpoint se obtiene la canción con el id que le pongas (Uso Query Params)
 app.get("/encontrar-cancion-id", (req,res) => {
-    const cancion = ElBaifo.find(a => a.id == req.query.id);
 
-    if(!cancion){
-        return res.status(404).json({
-            mensaje: "Canción no encontrada"
-        })
+    try {
+        const cancion = ElBaifo.find(a => a.id == req.query.id);
+
+        if(!cancion){
+            return res.status(404).json({
+                mensaje: "Canción no encontrada"
+            })
+        }
+
+        return res.status(200).json(cancion);
+
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: "Error interno del servidor"
+        });
     }
-
-    return res.json(cancion)
 })
 
 // Con este Endpoint se obtiene la canción con el id que le pongas (Uso Route Params)
 app.get("/ElBaifo/:id", (req, res) => {
-    const cancion = ElBaifo.find(a => a.id == req.params.id);
-    return res.json(cancion);
-})
+
+    try {
+        const cancion = ElBaifo.find(a => a.id == req.params.id);
+
+        if (!cancion) {
+            return res.status(404).json({ mensaje: "Canción no encontrada" });
+        }
+
+        return res.status(200).json(cancion);
+
+    } catch (error) {
+        return res.status(500).json({ mensaje: "Error interno del servidor" });
+    }
+});
 
 // Hago un Endpoint para crear y guardar una nueva canción poniendo la restricción de los campos obligatorios con un if
 app.post("/guardar-cancion", (req,res) =>{ 
 
-    if(
-        !req.body.titulo || !req.body.duracion || !req.body.ft || !req.body.compositores || !req.body.bpm || !req.body.key
-    ){
-        return res.status(400).json({
-            mensaje: "Falta algún campo o algunos campos obligatorios. (Recuerda introducir: titulo, duracion, ft, compositores, bpm y key)"
-        })
+    try {
+        if(
+            !req.body.titulo || !req.body.duracion || !req.body.ft ||
+            !req.body.compositores || !req.body.bpm || !req.body.key
+        ){
+            return res.status(400).json({
+                mensaje: "Falta algún campo obligatorio"
+            })
+        }
+
+        let nuevaCancion = {
+            id: ElBaifo.length+1,
+            titulo: req.body.titulo,
+            duracion: req.body.duracion,
+            artista_principal: "Quevedo",
+            ft: req.body.ft,
+            compositores: req.body.compositores,
+            bpm: req.body.bpm,
+            key: req.body.key
+        }
+
+        ElBaifo.push(nuevaCancion);
+
+        return res.status(201).json(nuevaCancion)
+
+    } catch (error) {
+        return res.status(500).json({ mensaje: "Error interno del servidor" });
     }
-
-    let nuevaCancion = {
-        id: ElBaifo.length+1,
-        titulo: req.body.titulo,
-        duracion: req.body.duracion,
-        artista_principal: "Quevedo",
-        ft: req.body.ft,
-        compositores: req.body.compositores,
-        bpm: req.body.bpm,
-        key: req.body.key
-    }
-
-    ElBaifo.push(nuevaCancion);
-
-    return res.status(201).json(nuevaCancion)
 })
 
 // Creo un Endpoint PUT para actualizar canción
 app.put("/actualizar-cancion", (req,res) => {
-    
-    ElBaifo[req.body.id-1].titulo = req.body.titulo;
-    ElBaifo[req.body.id-1].duracion = req.body.duracion;
-    ElBaifo[req.body.id-1].artista_principal = "Quevedo";
-    ElBaifo[req.body.id-1].ft = req.body.ft || null;
-    ElBaifo[req.body.id-1].compositores = req.body.compositores;
-    ElBaifo[req.body.id-1].bpm = req.body.bpm;
-    ElBaifo[req.body.id-1].key = req.body.key;
 
-    return res.json(ElBaifo[req.body.id-1])
-})
+    try {
+        const index = ElBaifo.findIndex(a => a.id == req.body.id);
+
+        if (index == -1) {
+            return res.status(404).json({ mensaje: "Canción no encontrada" });
+        }
+
+        if(!req.body.titulo || !req.body.duracion || !req.body.compositores || !req.body.bpm || !req.body.key){
+            return res.status(400).json({ mensaje: "Datos incompletos" });
+        }
+
+        ElBaifo[req.body.id-1].titulo = req.body.titulo;
+        ElBaifo[req.body.id-1].duracion = req.body.duracion;
+        ElBaifo[req.body.id-1].artista_principal = "Quevedo";
+        ElBaifo[req.body.id-1].ft = req.body.ft || null;
+        ElBaifo[req.body.id-1].compositores = req.body.compositores;
+        ElBaifo[req.body.id-1].bpm = req.body.bpm;
+        ElBaifo[req.body.id-1].key = req.body.key;
+
+        return res.status(200).json(ElBaifo[req.body.id-1]);
+
+    } catch (error) {
+        return res.status(500).json({ mensaje: "Error interno del servidor" });
+    }
+});
 
 // Hago un Endpoint DELETE para eliminar canción
 app.delete("/eliminar-cancion", (req,res) => {
-    const index = ElBaifo.findIndex(a => a.id == req.body.id)
-    ElBaifo.splice(index, 1)
-    return res.send("La canción con id " + req.body.id + " eliminada")
-})
+
+    try {
+        const index = ElBaifo.findIndex(a => a.id == req.body.id);
+
+        if (index == -1) {
+            return res.status(404).json({ mensaje: "Canción no encontrada" });
+        }
+
+        ElBaifo.splice(index, 1);
+
+        return res.status(200).json({ mensaje: "Canción eliminada" });
+
+    } catch (error) {
+        return res.status(500).json({ mensaje: "Error interno del servidor" });
+    }
+});
 
 // GET para obtener todos los productores
 app.get("/productores", (req,res) => {
-    return res.json(productores)
+
+    try {
+        if (!productores || productores.length === 0) {
+            return res.status(404).json({ mensaje: "No hay productores" });
+        }
+
+        return res.status(200).json(productores);
+
+    } catch (error) {
+        return res.status(500).json({ mensaje: "Error interno del servidor" });
+    }
 })
 
 // Creo un Endpoint para obtener los productores de una canción
-
 app.get("/canciones/:id/productores", (req,res) => {
 
-    const resultado = productores.filter(
-        a => a.id_cancion == req.params.id
-    )
+    try {
+        const resultado = productores.filter(
+            a => a.id_cancion == req.params.id
+        )
 
-    return res.json(resultado)
+        if (resultado.length === 0) {
+            return res.status(404).json({
+                mensaje: "No hay productores para esa canción"
+            });
+        }
+
+        return res.status(200).json(resultado);
+
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: "Error interno del servidor"
+        });
+    }
 })
 
 // Hago un Endpoint para crear y guardar productores, poniendo la restricción de los campos obligatorios con un if
 app.post("/guardar-productor", (req,res) =>{
 
-    if(!req.body.id_cancion || !req.body.productores){
-        return res.status(400).json({
-            mensaje: "Falta algún campo obligatorio. (Recuerda introducir: id_cancion y productores)"
-        })
+    try {
+        if(!req.body.id_cancion || !req.body.productores){
+            return res.status(400).json({
+                mensaje: "Faltan datos obligatorios"
+            })
+        }
+
+        let nuevoProductor = {
+            id_cancion: req.body.id_cancion,
+            productores: req.body.productores
+        }
+
+        productores.push(nuevoProductor);
+
+        return res.status(201).json(nuevoProductor);
+
+    } catch (error) {
+        return res.status(500).json({ mensaje: "Error interno del servidor" });
     }
-
-    let nuevoProductor = {
-        id_cancion: req.body.id_cancion,
-        productores: req.body.productores
-    }
-
-    productores.push(nuevoProductor);
-
-    return res.status(201).json(nuevoProductor)
 })
 
 // Hago un Endpoint DELETE para eliminar productores
 app.delete("/eliminar-productor", (req,res) => {
 
-    const index = productores.findIndex(a => a.id_cancion == req.body.id_cancion)
+    try {
+        const index = productores.findIndex(a => a.id_cancion == req.body.id_cancion)
 
-    productores.splice(index, 1);
+        if (index == -1) {
+            return res.status(404).json({ mensaje: "Productores no encontrados" });
+        }
 
-    return res.send("Productores eliminados")
+        productores.splice(index, 1);
+
+        return res.status(200).json({ mensaje: "Productores eliminados" });
+
+    } catch (error) {
+        return res.status(500).json({ mensaje: "Error interno del servidor" });
+    }
 })
 
 // Creo Endpoint para obtener canciones con filtro
 app.get("/filtrar-canciones", (req,res) => {
 
-    let resultado = ElBaifo
+    try {
+        let resultado = ElBaifo
 
-    if(req.query.titulo){
-        resultado = resultado.filter(a =>
-            a.titulo.toLowerCase().includes(req.query.titulo.toLowerCase())
-        )
+        if(req.query.titulo){
+            resultado = resultado.filter(a =>
+                a.titulo.toLowerCase().includes(req.query.titulo.toLowerCase())
+            )
+        }
+
+        if(req.query.artista){
+            resultado = resultado.filter(a =>
+                a.artista_principal.toLowerCase().includes(req.query.artista.toLowerCase())
+            )
+        }
+
+        if(req.query.key){
+            resultado = resultado.filter(a =>
+                a.key.toLowerCase() == req.query.key.toLowerCase()
+            )
+        }
+
+        return res.status(200).json(resultado);
+
+    } catch (error) {
+        return res.status(500).json({ mensaje: "Error interno del servidor" });
     }
-
-    if(req.query.artista){
-        resultado = resultado.filter(a =>
-            a.artista_principal.toLowerCase().includes(req.query.artista.toLowerCase())
-        )
-    }
-
-    if(req.query.key){
-        resultado = resultado.filter(a =>
-            a.key.toLowerCase() == req.query.key.toLowerCase()
-        )
-    }
-
-    return res.json(resultado)
 })
 
 // Creo Endepoint para buscar canciones por filtro de texto parcial
 app.get("/buscar-canciones", (req,res) => {
 
-    const resultado = ElBaifo.filter(a =>
-        a.titulo.toLowerCase().includes(req.query.titulo.toLowerCase())
-    )
+    try {
+        if(!req.query.titulo){
+            return res.status(400).json({
+                mensaje: "Falta el parámetro titulo"
+            });
+        }
 
-    return res.json(resultado)
+        const resultado = ElBaifo.filter(a =>
+            a.titulo.toLowerCase().includes(req.query.titulo.toLowerCase())
+        )
+
+        return res.status(200).json(resultado);
+
+    } catch (error) {
+        return res.status(500).json({ mensaje: "Error interno del servidor" });
+    }
 })
 
 // Creo Endpoint para buscar productores por filtro de texto parcial
 app.get("/buscar-productores", (req,res) => {
 
-    const resultado = productores.filter(a =>
-        a.productores.toLowerCase().includes(req.query.productores.toLowerCase())
-    )
+    try {
+        if(!req.query.productores){
+            return res.status(400).json({
+                mensaje: "Falta el parámetro productores"
+            });
+        }
 
-    return res.json(resultado)
+        const resultado = productores.filter(a =>
+            a.productores.toLowerCase().includes(req.query.productores.toLowerCase())
+        )
+
+        return res.status(200).json(resultado);
+
+    } catch (error) {
+        return res.status(500).json({ mensaje: "Error interno del servidor" });
+    }
 })
 
 // Creo Endpoint para ordenar los bpm de menor a mayor o viceversa, por defecto es de menor a mayor
 app.get("/ordenar-bpm", (req,res) => {
 
-    const orden = req.query.orden;
+    try {
+        const orden = req.query.orden;
 
-    if(orden == "desc"){
-        return res.json(ElBaifo.sort((a,b) => b.bpm - a.bpm));
+        if(orden == "desc"){
+            return res.json(ElBaifo.sort((a,b) => b.bpm - a.bpm));
+        }
+
+        return res.json(ElBaifo.sort((a,b) => a.bpm - b.bpm));
+
+    } catch (error) {
+        return res.status(500).json({ mensaje: "Error interno del servidor" });
     }
-
-    return res.json(ElBaifo.sort((a,b) => a.bpm - b.bpm));
 })
 
 // Creo Endepoint para hacer la media de bpm
 app.get("/bpm/media", (req,res) => {
 
-    let suma = 0;
+    try {
+        if (ElBaifo.length === 0) {
+            return res.status(404).json({
+                mensaje: "No hay canciones para calcular la media"
+            });
+        }
 
-    for(let i = 0; i < ElBaifo.length; i++){
-        suma = suma + Number(ElBaifo[i].bpm);
+        let suma = 0;
+
+        for(let i = 0; i < ElBaifo.length; i++){
+            suma = suma + Number(ElBaifo[i].bpm);
+        }
+
+        return res.status(200).json({
+            media_bpm: suma / ElBaifo.length
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: "Error interno del servidor"
+        });
     }
-
-    return res.json({
-    media_bpm: suma / ElBaifo.length
-});
 })
 
 // Creo Endepoint para obtener la acanción que tenga el bpm más alto
 app.get("/bpm/max", (req,res) => {
 
-    let max = Number(ElBaifo[0].bpm);
-
-    for(let i = 0; i < ElBaifo.length; i++){
-        if(Number(ElBaifo[i].bpm) > max){
-            max = Number(ElBaifo[i].bpm);
+    try {
+        if (ElBaifo.length === 0) {
+            return res.status(404).json({
+                mensaje: "No hay canciones"
+            });
         }
-    }
 
-    return res.json({ maximo: max });
+        let max = Number(ElBaifo[0].bpm);
+
+        for(let i = 0; i < ElBaifo.length; i++){
+            if(Number(ElBaifo[i].bpm) > max){
+                max = Number(ElBaifo[i].bpm);
+            }
+        }
+
+        return res.status(200).json({ maximo: max });
+
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: "Error interno del servidor"
+        });
+    }
 })
 
 // Creo Endepoint para obtener la acanción que tenga el bpm más bajo
 app.get("/bpm/min", (req,res) => {
 
-    let min = Number(ElBaifo[0].bpm);
-
-    for(let i = 0; i < ElBaifo.length; i++){
-        if(Number(ElBaifo[i].bpm) < min){
-            min = Number(ElBaifo[i].bpm);
+    try {
+        if (ElBaifo.length === 0) {
+            return res.status(404).json({
+                mensaje: "No hay canciones"
+            });
         }
-    }
 
-    return res.json({ minimo: min });
+        let min = Number(ElBaifo[0].bpm);
+
+        for(let i = 0; i < ElBaifo.length; i++){
+            if(Number(ElBaifo[i].bpm) < min){
+                min = Number(ElBaifo[i].bpm);
+            }
+        }
+
+        return res.status(200).json({ minimo: min });
+
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: "Error interno del servidor"
+        });
+    }
 })
 
 // Creo Endepoint para obtener el número de bpm más altos o más bajos (El predeterminado si no poner orden=desc es ascendente)
 app.get("/orden-bpm", (req,res) => {
 
-    let num = req.query.num;
-    let orden = req.query.orden;
+    try {
+        let num = Number(req.query.num);
+        let orden = req.query.orden;
 
-    let resultado = ElBaifo.slice();
+        if (!num || num <= 0) {
+            return res.status(400).json({
+                mensaje: "El parámetro num es incorrecto"
+            });
+        }
 
-    if(orden == "desc"){
-        resultado.sort((a,b) => b.bpm - a.bpm);
-    } else {
-        resultado.sort((a,b) => a.bpm - b.bpm);
+        let resultado = ElBaifo.slice();
+
+        if(orden == "desc"){
+            resultado.sort((a,b) => b.bpm - a.bpm);
+        } else {
+            resultado.sort((a,b) => a.bpm - b.bpm);
+        }
+
+        return res.status(200).json(resultado.slice(0,num));
+
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: "Error interno del servidor"
+        });
     }
-
-    return res.json(resultado.slice(0,num));
 })
 
 // Creo Endpoint que te dice el número de canciones totales y el de productores totales
 app.get("/totales", (req, res) => {
 
-    return res.json({
-        canciones: ElBaifo.length,
-        productores: productores.length
-    });
+    try {
+        return res.status(200).json({
+            canciones: ElBaifo.length,
+            productores: productores.length
+        });
 
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: "Error interno del servidor"
+        });
+    }
 });
 
 // Creo Endpoint para agrupar las key, poniendo las key con el número de veces que se repite
 app.get("/agrupar-key", (req, res) => {
 
-    let resultado = {};
+    try {
+        let resultado = {};
 
-    for (let i = 0; i < ElBaifo.length; i++) {
-        let key = ElBaifo[i].key;
+        for (let i = 0; i < ElBaifo.length; i++) {
+            let key = ElBaifo[i].key;
 
-        if (resultado[key]) {
-            resultado[key]++;
-        } else {
-            resultado[key] = 1;
+            if (resultado[key]) {
+                resultado[key]++;
+            } else {
+                resultado[key] = 1;
+            }
         }
-    }
 
-    return res.json(resultado);
+        return res.status(200).json(resultado);
+
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: "Error interno del servidor"
+        });
+    }
 });
