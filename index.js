@@ -5,7 +5,7 @@ const port = 7777;
 app.use(express.json());
 
 app.listen(port, () =>
-console.log("Servidor del Baifo abierto"));
+console.log("Servidor de El Baifo abierto"));
 
 let ElBaifo = [
     {"id": 1, "titulo": "ESTÁ EN CASA", "duracion": "2:12", "artista_principal": "Quevedo", "ft": null, "compositores": "Pedro Luis Domínguez Quevedo, Juan Pedro Moreno Carril, Javier Flaquet Moragues, Geovanny Javier Chasiloa Caza", "bpm": "94", "key": "C minor"},
