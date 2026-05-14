@@ -71,11 +71,13 @@ app.get("/ElBaifo/:id", (req, res) => {
 })
 
 // Hago un Endpoint para crear y guardar una nueva canción poniendo la restricción de los campos obligatorios con un if
-app.post("/guardar-cancion", (req,res) =>{
+app.post("/guardar-cancion", (req,res) =>{ 
 
-    if(!req.body.titulo || !req.body.duracion || !req.body.artista_principal){
+    if(
+        !req.body.titulo || !req.body.duracion || !req.body.ft || !req.body.compositores || !req.body.bpm || !req.body.key
+    ){
         return res.status(400).json({
-            mensaje: "Falta algún campo o algunos campos obligatorios. (Recuerda introducir: titulo, duracion y artista)"
+            mensaje: "Falta algún campo o algunos campos obligatorios. (Recuerda introducir: titulo, duracion, ft, compositores, bpm y key)"
         })
     }
 
@@ -83,7 +85,11 @@ app.post("/guardar-cancion", (req,res) =>{
         id: ElBaifo.length+1,
         titulo: req.body.titulo,
         duracion: req.body.duracion,
-        artista_principal: req.body.artista_principal
+        artista_principal: "Quevedo",
+        ft: req.body.ft,
+        compositores: req.body.compositores,
+        bpm: req.body.bpm,
+        key: req.body.key
     }
 
     ElBaifo.push(nuevaCancion);
@@ -96,6 +102,11 @@ app.put("/actualizar-cancion", (req,res) => {
     
     ElBaifo[req.body.id-1].titulo = req.body.titulo;
     ElBaifo[req.body.id-1].duracion = req.body.duracion;
+    ElBaifo[req.body.id-1].artista_principal = "Quevedo";
+    ElBaifo[req.body.id-1].ft = req.body.ft || null;
+    ElBaifo[req.body.id-1].compositores = req.body.compositores;
+    ElBaifo[req.body.id-1].bpm = req.body.bpm;
+    ElBaifo[req.body.id-1].key = req.body.key;
 
     return res.json(ElBaifo[req.body.id-1])
 })
@@ -251,3 +262,5 @@ app.get("/bpm/min", (req,res) => {
 
     return res.json({ minimo: min });
 })
+
+// AÑADIR TODOS LOS CAMPOS EN EL POST Y PUT
