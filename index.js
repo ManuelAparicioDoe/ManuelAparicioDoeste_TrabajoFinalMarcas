@@ -263,4 +263,19 @@ app.get("/bpm/min", (req,res) => {
     return res.json({ minimo: min });
 })
 
-// AÑADIR TODOS LOS CAMPOS EN EL POST Y PUT
+// Creo Endepoint para obtener el número de bpm más altos o más bajos (El predeterminado si no poner orden=desc es ascendente)
+app.get("/orden-bpm", (req,res) => {
+
+    let num = req.query.num;
+    let orden = req.query.orden;
+
+    let resultado = ElBaifo.slice();
+
+    if(orden == "desc"){
+        resultado.sort((a,b) => b.bpm - a.bpm);
+    } else {
+        resultado.sort((a,b) => a.bpm - b.bpm);
+    }
+
+    return res.json(resultado.slice(0,num));
+})
